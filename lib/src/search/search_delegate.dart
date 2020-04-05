@@ -39,8 +39,6 @@ class DataSearch extends SearchDelegate{
     // Crea los resultados a mostrar
     return Container();
   }
-  final peliculasRecientes = ['Capitan America','BackStreet','Shazam!'];
-  final peliculas = ['Capitan America','BackStreet','Shazam!', 'Black Panter', 'La Cenicienta', 'Harry Potter'];
   @override
   Widget buildSuggestions(BuildContext context) {
     // Son las sugerencias que aparecen al momento de escribir
