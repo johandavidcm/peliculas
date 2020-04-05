@@ -2,14 +2,12 @@ class Cast{
   List<Actor> actores = List();
   Cast.fromJsonList(List<dynamic> jsonList){
     if(jsonList == null) return;
-
     jsonList.forEach((item){
       final actor = Actor.fromJsonMap(item);
       actores.add(actor);
     });
   }
 }
-
 
 class Actor {
   int castId;
@@ -50,7 +48,5 @@ class Actor {
     else{
       return 'https://image.tmdb.org/t/p/w500$profilePath';
     }
-
   }
-
 }
