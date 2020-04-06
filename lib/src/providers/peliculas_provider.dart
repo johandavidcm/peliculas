@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:peliculas/src/models/actores_model.dart';
 import 'package:peliculas/src/models/pelicula_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:peliculas/src/models/persona_model.dart';
 
 class PeliculasProvider{
   String _apiKey   = 'c046d2eecbf5036c4bf34fc2c53ebc71';
@@ -73,4 +74,19 @@ class PeliculasProvider{
     });
     return await _procesarRespuesta(url);
   }
+
+  Future<Persona> getPersona(String idPerson) async{
+    if(_cargando) return null;
+    _cargando = true;
+    final url = Uri.https(_url, '/3/person/$idPerson', {
+      'api_key'  : _apiKey,
+      'language' : _language,
+    });
+    final resp = await http.get(url);
+    final decodedData = json.decode(resp.body);
+    final persona = new Persona.fromJsonMap(decodedData);
+    _cargando = false;
+    return persona;
+  }
+
 }

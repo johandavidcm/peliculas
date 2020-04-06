@@ -119,7 +119,7 @@ class PeliculaDetalle extends StatelessWidget {
       height: 220,
       child: PageView.builder(
         itemBuilder: (BuildContext context, int i){
-          return _actorTarjeta(actores[i]);
+          return _actorTarjeta(actores[i], context);
         },
         pageSnapping: false,
         itemCount: actores.length,
@@ -131,24 +131,32 @@ class PeliculaDetalle extends StatelessWidget {
     );
   }
 
-  Widget _actorTarjeta(Actor actor) {
-    return Container(
-      child: Column(
-        children: <Widget>[
-          ClipRRect(
-            borderRadius: BorderRadius.circular(20.0),
-            child: FadeInImage(
-              image: NetworkImage(actor.getFoto()),
-              placeholder: AssetImage('assets/img/no-image.jpg'),
-              height: 150.0,
-              fit: BoxFit.cover,
-            ),
+  Widget _actorTarjeta(Actor actor, BuildContext context) {
+    return Hero(
+      tag: actor.id,
+      child: GestureDetector(
+        onTap: (){
+          Navigator.pushNamed(context, 'actor', arguments: actor.id);
+        },
+        child: Container(
+          child: Column(
+            children: <Widget>[
+              ClipRRect(
+                borderRadius: BorderRadius.circular(20.0),
+                child: FadeInImage(
+                  image: NetworkImage(actor.getFoto()),
+                  placeholder: AssetImage('assets/img/no-image.jpg'),
+                  height: 150.0,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              Text(
+                actor.name,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
           ),
-          Text(
-            actor.name,
-            overflow: TextOverflow.ellipsis,
-          ),
-        ],
+        ),
       ),
     );
   }
